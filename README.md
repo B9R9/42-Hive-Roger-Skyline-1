@@ -22,11 +22,17 @@
           *  You can check if user has been added to the sudo group with the commmand  `sudo whoami`
           *  Add `username  ALL=(ALL) NOPASSWD:ALL` to the `/etc/sudoers/` file
   - We don’t want you to use the DHCP service of your machine. You’ve got to configure it to have a static IP and a Netmask in \30.
+      * net-tools installation
+      ```
+      sudo apt-get insatll net-tools
+      ```
 
 
-##Documentation:
+## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
 * https://linuxize.com/post/how-to-add-user-to-sudoers-in-debian/
+* https://linuxconfig.org/how-to-setup-a-static-ip-address-on-debian-linux
+* https://petri.com/how-30-and-32-bit-ip-subnet-masks-can-help-with-cisco-networking/
 
   
 
