@@ -51,6 +51,8 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
    * try to connect `username@hostname -p <your port>` from MC terminal
    * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config` (from VM)
 
+####  You have to set the rules of your firewall on your server only with the services used outside the VM
+   *  
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
@@ -58,6 +60,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
 * https://linuxconfig.org/how-to-setup-a-static-ip-address-on-debian-linux
 * https://petri.com/how-30-and-32-bit-ip-subnet-masks-can-help-with-cisco-networking/
 * https://www.linuxlookup.com/howto/change_default_ssh_port
+* https://www.hostinger.fr/tutoriels/iptables
 
   
 
