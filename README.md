@@ -20,13 +20,19 @@
       * add user to sudo group:
           * `su`    then    `usermod -aG sudo <username>`
           *  You can check if user has been added to the sudo group with the commmand  `sudo whoami`
-          *  Add `username  ALL=(ALL) NOPASSWD:ALL` to the `/etc/sudoers/` file
+          *  Add `username  ALL=(ALL) NOPASSWD:ALL` to the `/etc/sudoers` file
   - We don’t want you to use the DHCP service of your machine. You’ve got to configure it to have a static IP and a Netmask in \30.
       * net-tools installation
       ```
       sudo apt-get insatll net-tools
       ```
-
+      * Create  `enp0s3`  in `/etc/network/interface.d` and copy this:
+ ````
+iface enp0s3 inet static
+      address <Static ip adress>
+      netmask 255.255.255.252
+      gateway <route -n get default | grep gateway> to find your gateway address(in MC terminal)
+ ````
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
