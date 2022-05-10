@@ -43,6 +43,7 @@ iface enp0s3 inet static
    * Decomment and modify in `/etc/ssh/sshd_config`  `#Port 22` by your choice
    * restart the service `sudo /etc/init.d/ssh restart` 
    * try to connect `username@hostname -p <your port>`
+   * Maybe you will have to change in your VM `setup/network/attached to` -> Bridged Adaptater
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
