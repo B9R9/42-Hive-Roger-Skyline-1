@@ -49,7 +49,7 @@ iface enp0s3 inet static
 ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
 ````
    * try to connect `username@hostname -p <your port>` from MC terminal
-   * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config`
+   * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config` (from VM)
 
 
 ## Documentation:
