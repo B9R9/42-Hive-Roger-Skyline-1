@@ -116,7 +116,19 @@ sudo apt install fail2ban
 ```
 sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 ```
- 
+ #### You have to set a protection against scans on your VM’s open ports.
+  * Install nmap
+```
+sudo apt install nmap
+```
+  * Scan server
+```
+nmap -PN -sS <IP ADDRESS>
+```
+  * Install [portsentry](https://man.cx/portsentry(8))
+```
+sudo apt-get install portsentry
+```
 
 
 
