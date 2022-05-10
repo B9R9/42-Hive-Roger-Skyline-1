@@ -107,6 +107,18 @@ sudo ufw allow 80/tcp
 ```
    * Check the result with `sudo ufw status`
 
+####  You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM.
+  * Install fail2ban
+```
+sudo apt install fail2ban
+```
+  * Make a copy of `jail.conf` to `jail.local`
+```
+sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+```
+ 
+
+
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
@@ -119,6 +131,9 @@ sudo ufw allow 80/tcp
 * https://www.ionos.fr/digitalguide/serveur/outils/tutoriel-iptables-des-regles-pour-les-paquets-de-donnees/
 * https://www.netfilter.org/documentation/index.html#documentation-howto
 * https://help.ubuntu.com/community/UFW
+* https://www.digitalocean.com/community/tutorials/how-to-protect-an-apache-server-with-fail2ban-on-ubuntu-14-04
+* https://bobcares.com/blog/centos-ddos-protection/
+* https://www.tothenew.com/blog/fail2ban-port-80-to-protect-sites-from-dos-attacks/
 
   
 
