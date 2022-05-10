@@ -33,6 +33,12 @@ iface enp0s3 inet static
       netmask 255.255.255.252
       gateway <route -n get default | grep gateway> to find your gateway address(in MC terminal)
  ````
+   * Modify `/etc/network/interface` by replacing by `auto enp0s3` the Primary network interfaces 
+   * restart the service 
+  ````
+  sudo service networking restart
+  ````
+   * Check with `ifconfig` the result 
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
