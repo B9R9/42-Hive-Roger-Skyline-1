@@ -25,6 +25,7 @@
 
 
 ##Documentation:
+* https://www.youtube.com/watch?v=ErzhbUusgdI
 * https://linuxize.com/post/how-to-add-user-to-sudoers-in-debian/
 
   
