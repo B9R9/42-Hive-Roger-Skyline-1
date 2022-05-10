@@ -41,7 +41,7 @@ iface enp0s3 inet static
    * Check with `ifconfig` the result and try `ping google.com`
    * Maybe you will have to change in your VM `setup/network/attached to` -> Bridged Adaptater
 #### You have to change the default port of the SSH service by the one of your choice. SSH access HAS TO be done with publickeys. SSH root access SHOULD NOT be allowed directly, but with a user who can be root.
-   * Decomment and modify in `/etc/ssh/sshd_config`  `#Port 22` by your choice
+   * Uncomment and modify in `/etc/ssh/sshd_config`  `#Port 22` by your choice
    * restart the service `sudo /etc/init.d/ssh restart` 
    * try to connect `username@hostname -p <your port>`
    * Create a new ssh-key or use the one already existed (from MC terminal)
@@ -52,7 +52,61 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
    * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config` (from VM)
 
 ####  You have to set the rules of your firewall on your server only with the services used outside the VM
-   *  
+   *  Install [iptables](https://linux.die.net/man/8/iptables)
+```
+sudo apt-get install iptables
+```
+   * Check the actual list of IPtables with the attribute -L
+ ```
+  sudo iptables -L
+  sudo iptables -t nat -L
+  sudo iptables -t mangle -L
+  ```
+   * Reset rules of the tables
+```
+sudo iptables -F
+```
+   * Add DROP to all lists
+```
+sudo iptables -P INPUT DROP
+sudo iptables -P OUTPUT DROP
+sudo iptables -P FORWARD DROP
+```
+   * Remove localhost(lo)
+```
+sudo iptables -A INPUT -i lo -j ACCEPT
+sudo iptables -A OUTPUT -o lo -j ACCEPT
+```
+   * Allow outgoing connection HTTP and HTTPS for TCP for port 1024 to 65535
+```
+sudo iptables -A OUTPUT -o eth0 -p tcp --dport 80 --sport 1024:65535 -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -p tcp --dport 443 --sport 1024:65535 -j ACCEPT
+```
+   * ACCEPT established or related connections
+```
+sudo iptables -A INPUT -i eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -o eth0 -m state -state RELATED,ESTABLISHED -j ACCEPT
+```
+   * Or if it doesn't work you can use ufw
+```
+sudo apt install ufw
+sudo ufw status
+sudo ufw enable
+```
+   * Allow the ssh concection
+```
+sudo ufw allow <port>/tcp
+```
+   * Allow HTTPS
+```
+sudo ufw allow 443/tcp
+```
+   * Allow HTTP
+```
+sudo ufw allow 80/tcp
+```
+   * Check the result with `sudo ufw status`
+
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
@@ -61,6 +115,10 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
 * https://petri.com/how-30-and-32-bit-ip-subnet-masks-can-help-with-cisco-networking/
 * https://www.linuxlookup.com/howto/change_default_ssh_port
 * https://www.hostinger.fr/tutoriels/iptables
+* http://www.delafond.org/traducmanfr/man/man8/iptables.8.html
+* https://www.ionos.fr/digitalguide/serveur/outils/tutoriel-iptables-des-regles-pour-les-paquets-de-donnees/
+* https://www.netfilter.org/documentation/index.html#documentation-howto
+* https://help.ubuntu.com/community/UFW
 
   
 
