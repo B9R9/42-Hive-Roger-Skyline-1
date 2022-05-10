@@ -38,13 +38,18 @@ iface enp0s3 inet static
  ````
   sudo service networking restart
  ````
-   * Check with `ifconfig` the result 
+   * Check with `ifconfig` the result
+#### You have to change the default port of the SSH service by the one of your choice. SSH access HAS TO be done with publickeys. SSH root access SHOULD NOT be allowed directly, but with a user who can be root.
+   * Decomment and modify in `/etc/ssh/ssh_config`  `#Port 22`
+   * restart the service `sudo service ssh restart` || `sudo /etc/init.d/ssh restart` 
+   * try to connect `username@hostname -p <your port>`
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
 * https://linuxize.com/post/how-to-add-user-to-sudoers-in-debian/
 * https://linuxconfig.org/how-to-setup-a-static-ip-address-on-debian-linux
 * https://petri.com/how-30-and-32-bit-ip-subnet-masks-can-help-with-cisco-networking/
+* https://www.linuxlookup.com/howto/change_default_ssh_port
 
   
 
