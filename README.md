@@ -41,7 +41,7 @@ iface enp0s3 inet static
    * Check with `ifconfig` the result
 #### You have to change the default port of the SSH service by the one of your choice. SSH access HAS TO be done with publickeys. SSH root access SHOULD NOT be allowed directly, but with a user who can be root.
    * Decomment and modify in `/etc/ssh/sshd_config`  `#Port 22` by your choice
-   * restart the service `sudo service ssh restart` || `sudo /etc/init.d/ssh restart` 
+   * restart the service `sudo /etc/init.d/ssh restart` 
    * try to connect `username@hostname -p <your port>`
 
 ## Documentation:
