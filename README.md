@@ -38,12 +38,19 @@ iface enp0s3 inet static
  ````
   sudo service networking restart
  ````
-   * Check with `ifconfig` the result
+   * Check with `ifconfig` the result and try `ping google.com`
+   * Maybe you will have to change in your VM `setup/network/attached to` -> Bridged Adaptater
 #### You have to change the default port of the SSH service by the one of your choice. SSH access HAS TO be done with publickeys. SSH root access SHOULD NOT be allowed directly, but with a user who can be root.
    * Decomment and modify in `/etc/ssh/sshd_config`  `#Port 22` by your choice
    * restart the service `sudo /etc/init.d/ssh restart` 
    * try to connect `username@hostname -p <your port>`
-   * Maybe you will have to change in your VM `setup/network/attached to` -> Bridged Adaptater
+   * Create a new ssh-key or use the one already existed (from MC terminal)
+````
+ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
+````
+   * try to connect `username@hostname -p <your port>` from MC terminal
+   * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config`
+
 
 ## Documentation:
 * https://www.youtube.com/watch?v=ErzhbUusgdI
