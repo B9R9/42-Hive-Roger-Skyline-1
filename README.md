@@ -49,7 +49,7 @@ iface enp0s3 inet static
 ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
 ````
    * try to connect `username@hostname -p <your port>` from MC terminal
-   * Uncomment and change `PasswordAuthentification` to no the file `/etc/ssh/sshd_config` (from VM)
+   * Uncomment and change `PasswordAuthentification` to `no` the file `/etc/ssh/sshd_config` (from VM)
 
 ####  You have to set the rules of your firewall on your server only with the services used outside the VM
    *  Install [iptables](https://linux.die.net/man/8/iptables)
