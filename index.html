@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" />
+    <script src="script.js"> </script>
+    <title>Roger-Skyline</title>
+</head>
+<body>
+<header>
+    <div>
+        <h1 id="text">Welcome to Roger Skyline</h1>
+    </div>
+</header>
+<main>
+    <div>
+        <div class="box">
+            <a href="#VM Part" class="textcontaineur">
+                <h2>VM Part</h2>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#Network" class="textcontaineur">
+                <h2>Network & Security Part</h2>
+            </a>
+        </div>
+        <div class="box">
+            <a href="#web" class="textcontaineur">
+                <h2>Web Part & Deployment Part</h2>
+            </a>
+        </div>
+    </div>
+    <div id="VM Part" class="section">
+        <div class="section-title">
+            <h1>VM Part</h1>
+        </div>
+        <div class="solution">
+        </div>
+    </div>
+    <div id="Network" class="section">
+        <div class="section-title">
+            <h1>Network & Security Part</h1>
+        </div>
+        <div class="solution">
+            <div class="instruction">
+            <p>You must create a non-root user to connect to the machine and work.</p>
+            </div>
+            <div class="solutiontext">
+                <ul>
+                    <li><p>Do <code>su</code> then <code>adduser &laquo;username&raquo;</code></p></li>
+                </ul>
+            </div>
+            <div class="instruction">
+                <p>Use sudo, with this user, to be able to perform operation requiring special rights.</p>
+            </div>
+            <div class="solutiontext">
+            <ul>
+                <li><p>As root <code>apt install sudo</code></p></li>
+                <li><p>As root <code>usermod -aG sudo &laquo;username&raquo;</code></p></li>
+                <li><p>To check use <code>sudo whoami</code></p></li>
+                <li><p>You shoul add <code> username ALL=(ALL_ PASSWD:ALL</code> to the file <code>/etc/sudoers</code></p></li>
+            </ul>
+            </div>
+            <div class="instruction">
+                <p>We don’t want you to use the DHCP service of your machine. You’ve got to configure it to have a static IP and a Netmask in \30.</p>
+            </div>
+            <div class="solutiontext">
+                <ul>
+                    <li><p>Install net-tools <code>sudo apt install net-tools</code></p></li>
+                    <li><p>Create <code>enp0s3</code>in<code>/etc/network/interface.d</code> and copy this:</p> 
+                        <textarea  class="code">iface enp0s3 inet static
+                        address <Static ip address>
+                        netmask 255.255.255.252
+                        gateway <route -n get default | grep gateway> to find your gateway address(in MC terminal)
+                        </textarea></li>
+                    <li><p>Modify <code> /etc/network/interface</code> and change the Primary network interfaces by <code> auto enp0s3</code></p></li>
+                    <li><p>Restart the service <code>sudo service networking restart</code></p></li>
+                    <li><p>Check with <code>ifconfig</code> the result and try <code>ping google.com</code></p></li>
+                    <li><p>Maybe you will have to change in your VM <code>setup/network/attached to</code>->Bridged Adaptater</p></li>
+                    <li><p>Change <code>PubkeyAuthentification</code> to <code>yes</code></p></li>
+                   
+                </ul>
+            </div>
+            <div class="instruction">
+                <p>You have to change the default port of the SSH service by the one of your choice. SSH access HAS TO be done with publickeys. SSH root access SHOULD NOT be allowed directly, but with a user who can be root.</p>
+            </div>
+            <div class="solutiontext">
+                <ul>
+                    <li><p>In <code>/etc/ssh/sshd_config</code>uncomment and modify <code>#Port 22</code></p></li>
+                    <li><p>restart the service <code>sudo /etc/init.d/ssh restart</code></p></li>
+                    <li><p>Try to connect <code>username@hostname -p &laquo;port&raquo;</code></p></li>
+                    <li><p>Create a new ssh key with <code>ssh-keygen</code></p></li> 
+                    <li><p>use the one already existed <code>ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p &laquo;port&raquo;</code></port></code></p></li>
+                    <li><p>Try to connect <code>username@hostname -p &laquo;port&raquo;</code> from MC terminal</p></li>
+                    <li><p>Uncomment and change <code>PasswordAuthentification</code> to <code>no</code> in <code>/etc/ssh/sshd_config</code></p></li>
+                    <li><p>To remove rootlogin in <code>sshd_config</code> set <code>PermitRootLogin</code>to <code>no</code></p></li>
+                </ul>
+            </div>
+            <div class="instruction">
+                <p>You have to set the rules of your firewall on your server only with the services used outside the VM</p>
+            </div>
+            <div class="solutiontext">
+                <ul>
+                    <li><p>You can install <code>iptables</code> and try to do it</p></li>
+                    <li><p>Or you can install <code>sudo apt install ufw</code> who is a simple way to use the iptables</p></li>
+                    <li><p>Here some commands</p>
+                        <textarea class="code">sudo ufw statut 
+sudo ufw enable
+sudo ufw verbose
+                        </textarea></li>
+                    <li><p>To deny all incomming connection and allow all outgoing connection by default</p>
+                    <textarea class="code">sudo ufw default deny incoming
+sudo ufw default allow outgoing
+                    </textarea></li>
+                    <li><p>Now, we will alloc connetion for HTTP, HTTPS and SSH</p>
+                    <textarea class="code">sudo ufw allow &laquo;your port&raquo;/tcp
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+                    </textarea></li>
+                    <li><p>You can enabled or restart the service</p></li>
+                </ul>
+            </div>
+            <div class="instruction">
+                    <p>You have to set a DOS (Denial Of Service Attack) protection on your open ports of your VM</p>
+            </div>
+            <div class="solutiontext">
+                <ul>
+                    <li><p>We will use fail2ban to protect us from DOS attacks.</p></li>
+                    <li><p><code>sudo apt install fail2ban</code></p></li>
+                    <li><p>Create a copy of <code>jail.conf</code> to prevent any mistake</p></li>
+                    <code>sudo cp jail.conf jail.local</code>
+                    <li><p>In <code>jail.local</code> Create a jail for HTTP-get-dos</p>
+                    <textarea class="code">&#35Protect HTTP and HTTPS (HTTP)
+[http-get-dos]
+                            
+enabled = true
+port = http,https
+filter = http-get-dos
+logpath = /var/log/apache2/access.log
+maxentry = 300
+findtime = 300
+bantime = 600
+action = iptables[name=HTTP, port=http, protocol=tcp]
+                        </textarea></li>
+                        <li><p>Set rules for SSHD</p>
+                        <textarea class="code">[sshd]
+&#35 To use more aggressive sshd modes set filter parameter "mode" in jail.local:
+&#35 normal (default), ddos, extra or aggressive (combines all).
+&#35 See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
+mode   = agressive
+enabled = true
+port    = &laquo;yourport&raquo;
+logpath = %(sshd_log)s
+backend = %(sshd_backend)s
+maxentry = 3
+bantime = 600
+                        </textarea></li>
+                        <li><p>Create <code>/etc/fail2ban/filter.d/http-get-dos.conf</code> and copy: 
+                        <textarea class="code">[Definition]
+
+failregex = ^&laquo;HOST> -.*GET
+ignoreregex =
+</textarea></p></li>
+                        <li><p>Test your filter with:</p></li>
+                        <code>sudo fail2ban-regex /var/log/apache2/access.log /etc/fail2ban/filter.d/http-get-dos.conf </code>
+                        <li><p>You can try your your DOS protect with <code>slowloris</code></p></li>
+                        <li><p>To unban you use the command:</p></li>
+                        <code>sudo fail2ban-client set jail_name unbanip xxx.xxx.xxx.xxx</code>
+                </ul>
+            </div>
+    <div class="instruction">
+        <p>You have to set a protection against scans on your VM’s open ports.</p>
+    </div>
+    <div class="solutiontext">
+        <ul>
+            <li><p>We will use portsentry to protects our ports</p></li>
+            <li><code>sudo apt install portsentry</code></li>
+            <li><p>Edit <code>/etc/default/portsentry</code> and change</p></li>
+            <textarea class="code">TCP_MODE="tcp"
+UDP_MODE="udp"
+            </textarea>
+            <li><p>to</p>
+            <textarea class="code">TCP_MODE="atcp"
+UDP_MODE="audp"
+            </textarea></li>
+        </ul>
+    </div>
+    <div id="Web part" class="section">
+        <div class="section-title">
+            <h1>Web Part & Deployment Part</h1>
+        </div>
+        <div class="solution">
+        </div>
+    </div>
+</main>
+<footer>
+</footer>
+</body>
+</html>

@@ -1,0 +1,129 @@
+html {
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFA;
+}
+header {
+    height: 400px;
+}
+
+/*WELCOME MESSAGE*/
+#text {
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-weight: 200;
+    font-size: 100px;
+    color: #40434E;
+    /* display: inline-block; */
+    margin-top: 100px;
+	margin-left: 400px;
+	margin-right: 400px;
+    position: relative;
+}
+
+h1::after {
+    content: "";
+    position: absolute;
+    /* display: inline-block; */
+    height: 100%;
+    width: 3px;
+    right: -15px;
+    top: 0;
+    animation: cursor 1s infinite;
+}
+
+/*MENU BOX*/
+.box {
+    border: 2px solid black;
+
+    border-radius: 2%;
+    background-color: #912F40;
+    display: inline-block;
+    margin-left: 2%;
+    width: 30%;
+    height: 250px;
+    cursor: pointer;
+}
+
+h2 {
+    line-height:230px;
+    font-size: 130%;
+    text-justify: auto;
+    text-align: center;
+    color: #40434E;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 120%;
+    /* display: inline; */
+}
+
+.box :hover{
+    transform: scale(1.1);
+    font-style: bold;
+    color: black;
+}
+
+.section-title {
+    color: #40434E;
+    margin-top: 2%;;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    text-align: center;
+}
+
+.solution {
+    margin-top: 2%;
+    height: fit-content;
+    margin-left: 2%;
+}
+
+.solutiontext{
+    font-size: 120%;
+    margin-left: 4%;
+    display: inline-block;
+}
+
+code {
+    background-color: rgb(86, 101, 115 );
+    border-radius: 3px;
+    font-family: courier, monospace;
+    padding: 0 3px;
+    color: white;
+    font-style: italic;
+}
+
+.instruction {
+    font-size: 150%;
+    margin-bottom: -45px;
+    margin-top: -15px;
+}
+textarea{
+    width: 100%;
+    height: 100px;
+    background-color: rgb(86, 101, 115 );
+    color: white;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    font-size: 110%;
+
+}
+.section{
+    height: fit-content;
+}
+
+li {
+    margin-top: -20px;
+}
+
+ul {
+    margin-top: 45px;
+
+}
+
+
+
