@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="./styles.css" type="text/css" media="screen" /> -->
+    <style>
+        html {
+            padding: 0;
+            margin: 0;
+        }
+        
+        #text {
+        
+            text-align: center;
+            font-size: 300%;
+            color: #2D2D34;
+        }
+        
+        #containeur {
+            height: 200px;
+            text-align: center;
+            margin-top: 300px;
+            font-size: 200%;
+        }
+        
+        #loginbox {
+        
+            margin-top: 30px;
+        
+        }
+        
+        label {
+            color: #CEB1BE;
+        }
+        
+        input{
+            border-radius: 5px;
+            font-size: 100%;
+            color: #CEB1BE;
+        }
+        
+        button{
+            margin-top: 30px;
+            border-radius: 5px;
+            font-size: 100%;
+        }
+        
+        #popupcontaineur{
+            /* border: 1px solid yellow; */
+            position:absolute;
+            top:-2000px;
+            width: 100%;
+            height:100%;
+            background:rgba(128, 128, 128, 0.692);
+            overflow: auto;
+           transition: 2s;
+           text-align: center;
+           line-height: 750px;
+        }
+        
+        #popupback{
+            margin: 10% 20% 10% 20%;
+            background:whitesmoke;
+            height: 60%;
+            border-radius: 10px; 
+        }
+        
+        #close{
+            position: absolute;
+        }
+        
+        #popuptext {
+            font-size: 150%;
+        
+        }
+    </style>
+    <title>Roger -Skyline</title>
+</head>
+<body>
+    <div id="text">
+        <h1>Welcome to Roger Skyline 1</h1>
+    </div>
+    <div id="containeur">
+        <div id="userbox">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="uname" required>
+        </div>
+        <div id="loginbox">
+            <label for="psw"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="psw" required>
+        </div>
+        <div id="Button">
+            <button class="open" type="submit">Login</button>
+        </div>
+    </div>
+    <div id="popupcontaineur">
+        <div id="popupback">
+            <div id="content">
+                <p id="popuptext">Whatever! You can pass...</p>
+                <button id="close" class="close" type="submit">Close</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var openbtn= document.querySelector('.open')
+openbtn.addEventListener ('click',function (){
+  document.querySelector('#popupcontaineur').style.top='0'
+})
+
+var closebtn = document.querySelectorAll('.close')
+
+closebtn.forEach(function (btn) {
+  btn.addEventListener ('click', function(){
+    document.querySelector('#popupcontaineur').style.top='-5000px'
+  })
+})
+</script>
+</html>

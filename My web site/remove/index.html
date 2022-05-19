@@ -186,8 +186,100 @@ UDP_MODE="udp"
             <textarea class="code">TCP_MODE="atcp"
 UDP_MODE="audp"
             </textarea></li>
+            <li><p>Uncomment the line <code>KILL_ROUTE="/sbin/iptbales -I INPUT -s $TARGET$ -j DROP"</code></p></li>
+            <li><p>If you run <code>nmap 10.**.***.***</code> You should gt you ban</p></li>
+            <li><p>Check the banned IPs <code>sudo iptables -L -n -v | head</code></p></li>
+            <li><p>Unban yourself with <code>sudo iptables -D INPUT -s 10.**.***.** -j DROP</code></p></li>
+            <li><p>Edit <code>/etc/hosts.deny</code>by removing your ip</p></li> 
         </ul>
     </div>
+    <div class="instruction">
+        <p>Stop the services you don’t need for this project.</p>
+    </div>
+    <div class="solutiontext">
+        <ul>
+            <li><p>List enabled srevices with <code>sudo systemctl list-unit-files --type=service --state=enabled --all</code></p></li>    
+            <li><p>To disabled a service use <code>sudo systemctl disable [service name]</code></p></li>
+            <li><p>List of service needed:</p></li><textarea class="code">apache2
+cron 
+fail2ban 
+getty 
+networking 
+ssh 
+ufw</textarea></li>
+        </ul>
+    </div>
+    <div class="instruction">
+        <p>Create a script that updates all the sources of package, then your packages and which logs the whole in a file named /var/log/update_script.log. Create a scheduled task for this script once a week at 4AM and every time the machine reboots.</p>
+    </div>
+    <div class="solutiontext">
+        <ul>
+            <li>My Script:</li>
+            <textarea class="code">
+#!/bin/bash
+
+printf "\e[0;33m          ----------------------- \n" >> /var/log/sys_update.log
+printf "\e[0;33m         |***  \e[1;33mUPDATE SYSTEM\e[0;33m  ***|\n" >> /var/log/sys_update.log
+printf "\e[0;33m          ----------------------- \e[0m\n" >> /var/log/sys_update.log
+printf "" >> /var/log/sys_update.log
+printf "\e[1;36mStarted: \e[0m" >> /var/log/sys_update.log
+date >> /var/log/sys_update.log
+printf "\n" >> /var/log/sys_update.log
+printf "\e[4;33mUPDATE:\e[0m\n" >> /var/log/sys_update.log
+sudo apt-get update -y >> /var/log/sys_update.log
+printf "\n" >> /var/log/sys_update.log
+printf "\e[4;33mUPGRADE:\e[0m\n" >> /var/log/sys_update.log
+sudo apt-get full-upgrade -y >> /var/log/sys_update.log
+printf "\n" >> /var/log/sys_update.log
+printf "\e[4;33mAUTOREMOVE\e[0m\n" >> /var/log/sys_update.log
+sudo apt-get autoremove >> /var/log/sys_update.log
+printf "\n" >> /var/log/sys_update.log
+printf "\e[4;33mAUTOCLEAN:\e[0m\n" >> /var/log/sys_update.log
+sudo apt-get autoclean >> /var/log/sys_update.log
+printf "\n"  >> /var/log/sys_update.log
+printf "\e[1;36mEnded: \e[0m" >> /var/log/sys_update.log
+date >> /var/log/sys_update.log
+printf "\n" >> /var/log/sys_update.log
+echo -e "\e[0;32m-----------------------------------\e[0m" >> /var/log/sys_update.log
+echo "" >> /var/log/sys_update.log</textarea>
+                <li>Add the script to crontab <code>crontab -e</code></li>
+                <textarea class="code">
+@reboot /path/of/your/file &
+0 4 * * MON /path/of/your/file &
+                </textarea>
+        </ul>
+    </div>
+    <div class="instruction">
+        <p>Create a script that updates all the sources of package, then your packages and which logs the whole in a file named /var/log/update_script.log. Create a scheduled task for this script once a week at 4AM and every time the machine reboots.</p>
+    </div>
+    <div class="solutiontext">
+        <ul>
+            <li><p>My script:</p></li>
+            <textarea class="code">
+#!bin/bash
+
+if [ ! -e "/etc/crontab.backup" ];then
+    printf "No backup file found\n"
+    printf "Creation of crontab.backup\n"
+    cp /etc/crontab  /etc/crontab.backup
+    exit 0
+else
+    DIFF=$(diff /etc/crontab /etc/crontab.backup)
+    if [ "$DIFF" != "" ]; then
+        printf "Your crontab has been changed\n" | mail -s 'Crontab change' root@debian.lan
+        cp /etc/crontab /etc/crontab.backup
+        exit 0
+fi</textarea>
+            <li><p>Add to he crontab <code>0 0 * * * /PATH/OF/THE/FILE &</code></p></li>
+            <li>To configure our system to handles emails</li>
+            <code>sudo apt install mailutils postfix</code>
+            <p>During the installation choose local only ans system mail name to debian.lan</p>
+            <p>Edit <code>/etc/aliases</code> root : root@debian.lan</p>
+            <p>run sudo newaliases</p>
+            <p>use mailx to check your mail</p>
+            <p>sudo tail -f /var/log/mail.log  can be useful</p>
+        </ul>
+    </div>      
     <div id="Web part" class="section">
         <div class="section-title">
             <h1>Web Part & Deployment Part</h1>
