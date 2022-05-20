@@ -283,6 +283,7 @@ the content to copy:
 </VirtualHost>
 ```
 Enable by running `sudo a2ensite mysite.com.conf`
+Don't forgt to disabled the default page `sudo a2dissite 000-default.conf`
 Final  check:
 ```
 sudo apache2ctl configtest
