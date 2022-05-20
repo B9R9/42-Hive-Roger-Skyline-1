@@ -20,7 +20,7 @@
    * add user to sudo group:
         * `su -`    then    `usermod -aG sudo <username>`
         *  You can check if user has been added to the sudo group with the commmand  `sudo whoami`
-        *  Add `username  ALL=(ALL) NOPASSWD:ALL` to the `/etc/sudoers` file
+        *  Add `username  ALL=(ALL:ALL) ALL` to the `/etc/sudoers` file
 #### We don’t want you to use the DHCP service of your machine. You’ve got to configure it to have a static IP and a Netmask in \30.
    * net-tools installation
 ````
