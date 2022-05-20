@@ -13,12 +13,12 @@
 
 ### Network and Security Part
 #### You must create a non-root user to connect to the machine and work.
-   * `su`    then    `addsuser <username>`
+   * `su -`    then    `addsuser <username>`
 #### Use sudo, with this user, to be able to perform operation requiring special rights.
    * sudo installation:
-          * `su`    then    `apt-get install sudo`
+          * `su -`    then    `apt-get install sudo`
    * add user to sudo group:
-        * `su`    then    `usermod -aG sudo <username>`
+        * `su -`    then    `usermod -aG sudo <username>`
         *  You can check if user has been added to the sudo group with the commmand  `sudo whoami`
         *  Add `username  ALL=(ALL) NOPASSWD:ALL` to the `/etc/sudoers` file
 #### We don’t want you to use the DHCP service of your machine. You’ve got to configure it to have a static IP and a Netmask in \30.
@@ -50,6 +50,7 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub username@hostname -p <port>
 ````
    * try to connect `username@hostname -p <your port>` from MC terminal
    * Uncomment and change `PasswordAuthentification` to `no` the file `/etc/ssh/sshd_config` (from VM)
+   * Fot NO ROOT LOGIN set `PermitRootLogin` to `no` 
 
 ####  You have to set the rules of your firewall on your server only with the services used outside the VM
    *  You can try [iptables](https://linux.die.net/man/8/iptables)
