@@ -166,7 +166,8 @@ for
 TCP_MODE="atcp"
 UDP_MODE="audp"
 ```
-   * Uncomment the line `KILL_ROUTE="/sbin/iptbales -I INPUT -s $TARGET$ -j DROP"`
+   * In `/etc/portsentry/portsentry.conf` uncomment the line `KILL_ROUTE="/sbin/iptbales -I INPUT -s $TARGET$ -j DROP"`
+   * Change `BLOCK_UDP & BLOCK_TCP` from `0` to `1`
    * Run `nmap 10.**.***.***`, You should get you ban.
    * Check the banned IPS `sudo iptables -L -n -v | head`
    * To unbanned your self `sudo iptables -D INPUT -s 10.**.***.** -j DROP`
